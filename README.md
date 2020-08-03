@@ -1,1 +1,1 @@
-# rimworld-use-minified-buildings
+Rimworld mod, published on Steam workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2185809028
