@@ -10,6 +10,8 @@ namespace UseMinifiedBuildings
     {
         public int MaxHaulDistance = 0;
 
+        public bool EnableForQualityBuildings = true;
+
         private readonly QualityBuilderCompatibility qualityBuilderCompatibility;
 
         public UseMinifiedBuildingsSettings()
@@ -21,6 +23,7 @@ namespace UseMinifiedBuildings
         {
             base.ExposeData();
             Scribe_Values.Look(ref MaxHaulDistance, "maxHaulDistance", 0);
+            Scribe_Values.Look(ref EnableForQualityBuildings, "enableForQualityBuildings", true);
         }
 
         public bool IsTooFar(int distance)

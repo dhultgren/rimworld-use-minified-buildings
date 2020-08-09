@@ -30,6 +30,10 @@ namespace UseMinifiedBuildings
             listing.Label("Limit how many tiles the pawns will walk to get minified buildings. 0 means unlimited.");
             listing.IntEntry(ref Settings.MaxHaulDistance, ref buffer);
 
+            listing.Gap(40f);
+
+            listing.CheckboxLabeled("Enable for buildings with quality.", ref Settings.EnableForQualityBuildings);
+
             listing.End();
             base.DoSettingsWindowContents(inRect);
         }

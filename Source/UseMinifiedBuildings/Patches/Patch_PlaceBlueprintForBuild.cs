@@ -23,11 +23,12 @@ namespace UseMinifiedBuildings.Patches
 
         private static MinifiedThing GetClosestCandidate(BuildableDef sourceDef, IntVec3 center, Map map, Faction faction, ThingDef stuff)
         {
+            var settings = UseMinifiedBuildings.Settings;
             var matches = map.listerThings.ThingsOfDef(ThingDefOf.MinifiedThing).OfType<MinifiedThing>()
                 .Where(m => m.InnerThing.def == sourceDef && m.InnerThing.Stuff == stuff
                     && !m.IsForbidden(faction)
                     && InstallBlueprintUtility.ExistingBlueprintFor(m) == null
-                    && (!m.TryGetQuality(out QualityCategory qc) || qc >= UseMinifiedBuildings.Settings.GetMinQuality(sourceDef.frameDef, map)))
+                    && (!m.TryGetQuality(out QualityCategory qc) || (settings.EnableForQualityBuildings && qc >= settings.GetMinQuality(sourceDef.frameDef, map))))
                 .ToList();
 
             var minDist = int.MaxValue;
@@ -42,7 +43,7 @@ namespace UseMinifiedBuildings.Patches
                 }
             }
 
-            return UseMinifiedBuildings.Settings.IsTooFar(minDist) ? null : closest;
+            return settings.IsTooFar(minDist) ? null : closest;
         }
     }
 }
