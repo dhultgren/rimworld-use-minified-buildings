@@ -11,6 +11,7 @@ namespace UseMinifiedBuildings.Patches
     {
         static bool Prefix(BuildableDef sourceDef, IntVec3 center, Map map, Rot4 rotation, Faction faction, ThingDef stuff, ref Blueprint_Build __result)
         {
+            if (faction?.IsPlayer != true) return true;
             var toInstall = GetClosestCandidate(sourceDef, center, map, faction, stuff);
             if (toInstall != null)
             {
