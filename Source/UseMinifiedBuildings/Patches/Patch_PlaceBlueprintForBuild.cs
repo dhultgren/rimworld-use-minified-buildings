@@ -15,11 +15,22 @@ namespace UseMinifiedBuildings.Patches
             var toInstall = GetClosestCandidate(sourceDef, center, map, faction, stuff);
             if (toInstall != null)
             {
-                // This will make the function return null, but the return value doesn't seem to be used anywhere. Fingers crossed :)
                 GenConstruct.PlaceBlueprintForInstall(toInstall, center, map, rotation, faction);
+
+                // Rimworld 1.3 uses the result to set faction style for new buildings, but the style should already be set since it's an existing building.
+                // Might miss style update if the player uninstalls unclaimed buildings, we will have to see when we can test with Ideology
+                __result = CreateFakeBlueprintBuild(sourceDef, faction, stuff);
                 return false;
             }
             return true;
+        }
+
+        private static Blueprint_Build CreateFakeBlueprintBuild(BuildableDef sourceDef, Faction faction, ThingDef stuff)
+        {
+            var blueprintBuild = (Blueprint_Build)ThingMaker.MakeThing(sourceDef.blueprintDef);
+            blueprintBuild.SetFactionDirect(faction);
+            blueprintBuild.stuffToUse = stuff;
+            return blueprintBuild;
         }
 
         private static MinifiedThing GetClosestCandidate(BuildableDef sourceDef, IntVec3 center, Map map, Faction faction, ThingDef stuff)
