@@ -41,7 +41,7 @@ namespace UseMinifiedBuildings
 
     class QualityBuilderCompatibility
     {
-        private MethodInfo getDefaultMinQualitySettingMethod;
+        private readonly MethodInfo getDefaultMinQualitySettingMethod;
         public QualityBuilderCompatibility()
         {
             if (LoadedModManager.RunningModsListForReading.Any(m => m.PackageId == "hatti.qualitybuilder"))
