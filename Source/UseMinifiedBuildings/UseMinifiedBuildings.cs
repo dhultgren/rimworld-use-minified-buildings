@@ -22,8 +22,10 @@ namespace UseMinifiedBuildings
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
-            var listing = new Listing_Standard();
-            listing.ColumnWidth = 400f;
+            var listing = new Listing_Standard
+            {
+                ColumnWidth = 400f
+            };
             listing.Begin(inRect);
 
             string buffer = Settings.MaxHaulDistance.ToString();

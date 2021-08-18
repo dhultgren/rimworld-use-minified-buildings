@@ -6,10 +6,10 @@ using Verse;
 namespace UseMinifiedBuildings.Patches
 {
     // Intercept building blueprints and replace with install blueprints if there are minified options available
-    [HarmonyPatch(typeof(GenConstruct), "PlaceBlueprintForBuild")]
-    public class Patch_PlaceBlueprintForBuild
+    [HarmonyPatch(typeof(GenConstruct), "PlaceBlueprintForBuild_NewTemp")]
+    public class Patch_PlaceBlueprintForBuild_NewTemp
     {
-        static bool Prefix(BuildableDef sourceDef, IntVec3 center, Map map, Rot4 rotation, Faction faction, ThingDef stuff, ref Blueprint_Build __result)
+        static bool Prefix(BuildableDef sourceDef, ref IntVec3 center, ref Map map, ref Rot4 rotation, ref Faction faction, ref ThingDef stuff, Precept_ThingStyle styleSource, ThingStyleDef styleDef, ref Blueprint_Build __result)
         {
             if (faction?.IsPlayer != true) return true;
             var toInstall = GetClosestCandidate(sourceDef, center, map, faction, stuff);
